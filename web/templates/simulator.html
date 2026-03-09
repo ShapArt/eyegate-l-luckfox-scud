@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Simulator • EyeGate</title>
+</head>
+<body>
+<header>
+    <div class="brand"><span class="dot"></span> EyeGate / Room Simulator</div>
+    <div class="nav">
+        <a href="/kiosk">Kiosk</a>
+        <a href="/monitor">Monitor</a>
+        <a href="/sim">Sim</a>
+        <a href="/admin">Admin</a>
+    </div>
+</header>
+<main class="layout">
+    <div class="panels">
+        <section class="panel">
+            <h2>Doors</h2>
+            <div class="grid-2">
+                <div class="panel">
+                    <h3>Door 1</h3>
+                    <div class="row"><span class="dot state-locked" id="d1-dot"></span><span id="d1-label">-</span></div>
+                    <div class="row">
+                        <button class="btn" data-action="open" data-door="1">Open</button>
+                        <button class="btn secondary" data-action="close" data-door="1">Close</button>
+                    </div>
+                </div>
+                <div class="panel">
+                    <h3>Door 2</h3>
+                    <div class="row"><span class="dot state-locked" id="d2-dot"></span><span id="d2-label">-</span></div>
+                    <div class="row">
+                        <button class="btn" data-action="open" data-door="2">Open</button>
+                        <button class="btn secondary" data-action="close" data-door="2">Close</button>
+                    </div>
+                </div>
+            </div>
+            <p class="hint">Blue = locked, Green = unlocked, Yellow = open, Red = alarm.</p>
+            <div class="row">
+                <label class="small">Admin token (если задан)
+                    <input data-admin-token type="password" placeholder="X-Admin-Token">
+                </label>
+                <button class="btn secondary" id="refresh-btn">Обновить</button>
+            </div>
+        </section>
+
+        <section class="panel">
+            <h2>Demo overrides</h2>
+            <div class="row">
+                <label>People count
+                    <input type="number" id="override-count" min="0" max="3" value="1">
+                </label>
+                <label>Force match?
+                    <select id="override-match">
+                        <option value="match">true</option>
+                        <option value="nomatch">false</option>
+                        <option value="noface">no face</option>
+                    </select>
+                </label>
+                <button class="btn secondary" id="send-override">Send override</button>
+            </div>
+            <p class="log" id="override-note" data-type="info">Available only when dummy vision is active.</p>
+        </section>
+    </div>
+</main>
+<script src="/static/common.js"></script>
+<script src="/static/simulator.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+APP_DIR="/opt/eyegate-mantrap"
+DAEMON="${APP_DIR}/.venv/bin/uvicorn"
+DAEMON_OPTS="server.main:app --host 0.0.0.0 --port 8000"
+PIDFILE="/var/run/eyegate-mantrap.pid"
+
+start() {
+    echo "Starting EyeGate Mantrap..."
+    cd "${APP_DIR}" || exit 1
+    . .venv/bin/activate
+    ${DAEMON} ${DAEMON_OPTS} &
+    echo $! > "${PIDFILE}"
+    echo "Started with PID $(cat "${PIDFILE}")"
+}
+
+stop() {
+    echo "Stopping EyeGate Mantrap..."
+    if [ -f "${PIDFILE}" ]; then
+        kill "$(cat "${PIDFILE}")" 2>/dev/null || true
+        rm -f "${PIDFILE}"
+    fi
+    echo "Stopped."
+}
+
+restart() {
+    stop
+    start
+}
+
+case "$1" in
+    start)   start ;;
+    stop)    stop ;;
+    restart) restart ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+        ;;
+esac
+
+exit 0

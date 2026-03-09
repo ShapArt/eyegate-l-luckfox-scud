@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EyeGate Mantrap - Register</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-top">
+        <h1>EyeGate Mantrap</h1>
+        <nav class="nav">
+            <a href="/">Dashboard</a>
+            <a href="/kiosk">Kiosk</a>
+            <a href="/monitor">Monitor</a>
+            <a href="/simulator">Simulator</a>
+            <a href="/admin">Admin</a>
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
+        </nav>
+    </div>
+    <p class="subtitle">Create a new account with login/password and face capture from webcam.</p>
+</header>
+
+<main class="main single">
+    <section class="card wide">
+        <h2>Register</h2>
+        <form id="register-form" class="form-grid">
+            <label>
+                <span>Name</span>
+                <input type="text" name="name" required>
+            </label>
+            <label>
+                <span>Login</span>
+                <input type="text" name="login" required>
+            </label>
+            <label>
+                <span>Card ID</span>
+                <input type="text" name="card_id" required>
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" name="password" required>
+            </label>
+            <label>
+                <span>Confirm password</span>
+                <input type="password" name="password_confirm" required>
+            </label>
+            <label>
+                <span>Access level</span>
+                <input type="number" name="access_level" min="1" max="10" value="1">
+            </label>
+        </form>
+
+        <div class="camera-grid">
+            <div>
+            <div class="camera-header">
+                    <h3>Face capture (gateway camera)</h3>
+                    <div class="camera-actions">
+                        <button id="btn-capture" class="btn ghost" type="button">Fetch snapshot</button>
+                        <button id="btn-clear" class="btn ghost" type="button" disabled>Clear</button>
+                    </div>
+                </div>
+                <div class="camera-view">
+                    <div id="snapshot-box" class="preview-box">No snapshot yet</div>
+                </div>
+                <p class="hint">Серверный снимок через /api/video/snapshot. Браузерная камера не используется.</p>
+                <div id="camera-message" class="message small"></div>
+            </div>
+            <div class="capture-preview">
+                <h3>Captured frame</h3>
+                <div id="preview-box" class="preview-box">No frame yet</div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button id="btn-submit" type="button" class="btn">Create user</button>
+            <div id="register-message" class="message"></div>
+        </div>
+    </section>
+</main>
+
+<script>
+    let capturedDataUrl = null;
+
+    const snapshotBox = document.getElementById("snapshot-box");
+    const previewBox = document.getElementById("preview-box");
+    const cameraMsg = document.getElementById("camera-message");
+
+    function setCameraMsg(text, type = "") {
+        cameraMsg.textContent = text;
+        cameraMsg.className = "message small" + (type ? " " + type : "");
+    }
+
+    async function fetchSnapshot() {
+        try {
+            const resp = await fetch("/api/video/snapshot");
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const blob = await resp.blob();
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                capturedDataUrl = reader.result;
+                previewBox.innerHTML = '<img src="' + capturedDataUrl + '" alt="captured">';
+                snapshotBox.innerHTML = '<img src="' + capturedDataUrl + '" alt="snapshot">';
+                document.getElementById("btn-clear").disabled = false;
+                setCameraMsg("Snapshot captured from gateway camera", "success");
+            };
+            reader.readAsDataURL(blob);
+        } catch (err) {
+            console.error(err);
+            setCameraMsg("Cannot fetch snapshot: " + err.message, "error");
+        }
+    }
+
+    function clearCapture() {
+        capturedDataUrl = null;
+        previewBox.textContent = "No frame yet";
+        snapshotBox.textContent = "No snapshot yet";
+        setCameraMsg("Capture cleared");
+        document.getElementById("btn-clear").disabled = true;
+    }
+
+    async function submitRegister() {
+        const form = document.getElementById("register-form");
+        const payload = {
+            name: form.name.value.trim(),
+            login: form.login.value.trim(),
+            card_id: form.card_id.value.trim(),
+            password: form.password.value,
+            password_confirm: form.password_confirm.value,
+            access_level: Number(form.access_level.value || 1),
+        };
+
+        if (capturedDataUrl) {
+            payload.face_image_b64 = capturedDataUrl;
+        }
+
+        const msg = document.getElementById("register-message");
+        msg.textContent = "Sending...";
+        msg.className = "message";
+
+        try {
+            const resp = await fetch("/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+            if (!resp.ok) {
+                const detail = await resp.text();
+                throw new Error(detail || `HTTP ${resp.status}`);
+            }
+            const user = await resp.json();
+            msg.textContent = `User #${user.id} created (${user.login})`;
+            msg.className = "message success";
+            form.reset();
+            clearCapture();
+        } catch (err) {
+            console.error(err);
+            msg.textContent = err.message || "Registration failed";
+            msg.className = "message error";
+        }
+    }
+
+    document.getElementById("btn-capture").addEventListener("click", fetchSnapshot);
+    document.getElementById("btn-clear").addEventListener("click", clearCapture);
+    document.getElementById("btn-submit").addEventListener("click", submitRegister);
+</script>
+</body>
+</html>

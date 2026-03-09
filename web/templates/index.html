@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>EyeGate demo</title>
+</head>
+<body>
+<header>
+    <div class="brand"><span class="dot"></span> EyeGate Mantrap Demo</div>
+    <div class="nav">
+        <a href="/kiosk">Kiosk</a>
+        <a href="/monitor">Monitor</a>
+        <a href="/sim">Simulator</a>
+        <a href="/admin">Admin</a>
+    </div>
+</header>
+<main class="layout">
+    <div class="panels">
+        <section class="panel">
+            <h2>Быстрый старт</h2>
+            <div class="list">
+                <a class="btn" href="/kiosk">1) Kiosk — ввести PIN</a>
+                <a class="btn" href="/monitor">2) Monitor — камера + детекция</a>
+                <a class="btn" href="/sim">3) Simulator — двери/индикаторы</a>
+                <a class="btn secondary" href="/admin">Админка — пользователи, enrollment</a>
+            </div>
+            <p class="muted">Цикл: PIN → закрыть Door1 → камера → Door2 → закрыть Door2 → новый цикл.</p>
+        </section>
+    </div>
+</main>
+</body>
+</html>

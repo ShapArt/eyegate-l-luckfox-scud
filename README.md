@@ -1,181 +1,39 @@
-﻿# 👁️‍🗨️ EyeGate‑L (Luckfox Pico Ultra W) — SCUD (скелет)
-
-[![CI](https://github.com/ShapArt/eyegate-l-luckfox-scud/actions/workflows/ci.yml/badge.svg)](https://github.com/ShapArt/eyegate-l-luckfox-scud/actions/workflows/ci.yml) [![license](https://img.shields.io/github/license/ShapArt/eyegate-l-luckfox-scud)](https://github.com/ShapArt/eyegate-l-luckfox-scud/blob/main/LICENSE)
-
-
-
-
-
-
-**Ключевые факты:**
-
-
-- 👁️‍🗨️ Считыватель «лицо+зрачки» на Luckfox Pico Ultra W
-
-
-- 🧩 Backend: MicroPython, UI: Go (план)
-
-
-- 🔌 Аппаратная безопасность (питание/IR)
-
-
-
-
-
-
-
-
-<table>
-
-
-<tr>
-
-
-<td><b>✨ Что умеет</b><br/>Короткий список возможностей, ориентированных на ценность.</td>
-
-
-<td><b>🧠 Технологии</b><br/>Стек, ключевые решения, нюансы безопасности.</td>
-
-
-<td><b>🖼️ Демо</b><br/>Скриншот/гиф или ссылка на Pages.</td>
-
-
-</tr>
-
-
-</table>
-
-
-
-
-
-> [!TIP]
-
-
-> Репозиторий оформлен по правилам: Conventional Commits, SemVer, CHANGELOG, SECURITY policy и CI.
-
-
-> Секреты — только через `.env`/секреты репозитория.
-
-
-
-
-
-
-
-
-<p align="left">
-
-
-  <img alt="build" src="https://img.shields.io/github/actions/workflow/status/ShapArt/eyegate-l-luckfox-scud/ci.yml?label=CI&logo=githubactions">
-
-
-  <img alt="license" src="https://img.shields.io/github/license/ShapArt/eyegate-l-luckfox-scud">
-
-
-  <img alt="last commit" src="https://img.shields.io/github/last-commit/ShapArt/eyegate-l-luckfox-scud">
-
-
-  <img alt="issues" src="https://img.shields.io/github/issues/ShapArt/eyegate-l-luckfox-scud">
-
-
-  <img alt="stars" src="https://img.shields.io/github/stars/ShapArt/eyegate-l-luckfox-scud?style=social">
-
-
-</p>
-
-
-
-
-
-
-
-
-Skeleton‑репозиторий под курсовой: распознавание лица + глаз, управление реле.
-
-
-- Backend: MicroPython
-
-
-- Web UI: Go (в планах)
-
-
-- Документация: `docs/` (ГОСТ‑структура)
-
-
-
-
-
-> Здесь шаблоны: структуры папок, Makefile/compose, health‑эндпоинт, TODO‑лист.
-
-
-
-
+# EyeGate Mantrap
+
+EyeGate Mantrap — учебный программно-аппаратный макет шлюзовой системы контроля доступа с двумя дверями, PIN-аутентификацией, мониторингом состояния дверей и модулем анализа зоны между дверями.
+
+## Состав
+- `server/` — backend на FastAPI.
+- `web/app/` — SPA-интерфейс оператора, администратора, киоска и симулятора.
+- `gate/` — конечный автомат шлюза и контроллер логики.
+- `vision/` — сервис анализа кадров, people count, face matching.
+- `hw/` — драйверы датчиков, дверей и последовательного интерфейса.
+- `tests/` — автоматические тесты `pytest`.
+- `docs/` — эксплуатационные и проектные markdown-документы.
 
 ## Быстрый старт
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+cd web/app
+npm install
+npm run build
+cd ../..
+uvicorn server.main:app --reload
+```
 
+Для автономной стендовой проверки используйте `EYEGATE_DUMMY_HW=1` и `VISION_MODE=dummy`. Подробные параметры запуска и настройки приведены в [docs/INSTALL_RUNBOOK.md](docs/INSTALL_RUNBOOK.md).
 
+## Проверка
+```bash
+pytest -q
+```
 
-
-
-*Заполнить по мере развития проекта.*
-
-
-
-
-
-
-
-
-## Архитектура
-
-
-
-
-
-*Заполнить по мере развития проекта.*
-
-
-
-
-
-
-
-
-## Конфигурация
-
-
-
-
-
-*Заполнить по мере развития проекта.*
-
-
-
-
-
-
-
-
-## Тесты
-
-
-
-
-
-*Заполнить по мере развития проекта.*
-
-
-
-
-
-
-
-
-## Roadmap
-
-
-
-
-
-*Заполнить по мере развития проекта.*
+Ключевые документы:
+- [docs/INSTALL_RUNBOOK.md](docs/INSTALL_RUNBOOK.md)
+- [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
+- [docs/OPERATOR_GUIDE.md](docs/OPERATOR_GUIDE.md)
+- [docs/TEST_PLAN.md](docs/TEST_PLAN.md)
+- [docs/TRACEABILITY_MATRIX.md](docs/TRACEABILITY_MATRIX.md)

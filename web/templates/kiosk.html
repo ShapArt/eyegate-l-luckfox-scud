@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Kiosk • EyeGate</title>
+</head>
+<body>
+<header>
+    <div class="brand"><span class="dot"></span> EyeGate / Kiosk</div>
+    <div class="nav">
+        <a href="/kiosk">Kiosk</a>
+        <a href="/monitor">Monitor</a>
+        <a href="/sim">Sim</a>
+        <a href="/admin">Admin</a>
+    </div>
+</header>
+<main class="layout">
+    <div class="panels">
+        <section class="panel">
+            <h1>Ввод PIN перед входом</h1>
+            <p class="muted">Тапни PIN, потом зайди в Door1 и закрой её.</p>
+            <form id="pin-form" class="row">
+                <input id="pin-input" type="password" placeholder="PIN" autofocus required>
+                <button class="btn" type="submit">Отправить PIN</button>
+            </form>
+            <label class="small">Admin token (если задан)
+                <input data-admin-token type="password" placeholder="X-Admin-Token">
+            </label>
+            <div id="pin-message" class="log" data-type="info">Готово к вводу PIN.</div>
+        </section>
+
+        <section class="panel">
+            <h2>Status</h2>
+            <div class="status-bar">
+                <span class="pill" id="fsm-state">-</span>
+                <span class="pill" id="hint-text">Waiting</span>
+            </div>
+            <div class="row">
+                <div class="indicator"><span class="dot state-locked" id="door1-dot"></span>Door 1</div>
+                <div class="indicator"><span class="dot state-locked" id="door2-dot"></span>Door 2</div>
+            </div>
+            <div class="row">
+                <span class="chip">Card: <span id="card-id">-</span></span>
+                <span class="chip">User: <span id="user-id">-</span></span>
+            </div>
+            <div class="row small" id="vision-line">Vision: -</div>
+        </section>
+    </div>
+</main>
+<script src="/static/common.js"></script>
+<script src="/static/kiosk.js"></script>
+</body>
+</html>

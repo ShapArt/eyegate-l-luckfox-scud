@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Admin • EyeGate</title>
+</head>
+<body>
+<header>
+    <div class="brand"><span class="dot"></span> EyeGate / Admin</div>
+    <div class="nav">
+        <a href="/kiosk">Kiosk</a>
+        <a href="/monitor">Monitor</a>
+        <a href="/sim">Sim</a>
+        <a href="/admin">Admin</a>
+    </div>
+</header>
+<main class="layout">
+    <div class="panels">
+        <section class="panel">
+            <h2>Users</h2>
+            <form id="create-user-form" class="row">
+                <input name="name" placeholder="Name" required>
+                <input name="login" placeholder="Login" required>
+                <input name="password" placeholder="Password" required>
+                <input name="card_id" placeholder="Card / PIN" required>
+                <button class="btn" type="submit">Add</button>
+            </form>
+            <div class="muted small">Approve pending users and enroll face below.</div>
+            <table id="users-table">
+                <thead><tr><th>ID</th><th>Login</th><th>Status</th><th>Role</th><th>Actions</th></tr></thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section class="panel">
+            <h2>Face enrollment</h2>
+            <div class="row">
+                <select id="enroll-user"></select>
+                <button class="btn" id="btn-capture">Capture (gateway camera)</button>
+            </div>
+            <div class="video-wrap">
+                <img id="enroll-snapshot" alt="Gateway snapshot" />
+            </div>
+            <div class="log" id="enroll-hint" data-type="info">Камера шлюза используется через /api/video/snapshot. Браузерная камера не запрашивается.</div>
+        </section>
+
+        <section class="panel">
+            <h2>Events (last 100)</h2>
+            <div class="list" id="events-list"></div>
+            <div class="row">
+                <label class="small">Admin token (если задан)
+                    <input data-admin-token type="password" placeholder="X-Admin-Token">
+                </label>
+                <button class="btn secondary" id="reload-btn">Обновить</button>
+            </div>
+        </section>
+    </div>
+</main>
+<script src="/static/common.js"></script>
+<script src="/static/admin.js"></script>
+</body>
+</html>

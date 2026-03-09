@@ -1,0 +1,17 @@
+[Unit]
+Description=EyeGate Mantrap SCUD Server (FastAPI on Luckfox Pico Ultra)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/eyegate-mantrap
+Environment="EYEGATE_ENV=prod"
+Environment="EYEGATE_DUMMY_HW=0"
+ExecStart=/opt/eyegate-mantrap/.venv/bin/uvicorn server.main:app --host 0.0.0.0 --port 8000
+Restart=on-failure
+RestartSec=5
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target

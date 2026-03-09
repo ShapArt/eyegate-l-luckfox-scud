@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+    <title>Monitor • EyeGate</title>
+</head>
+<body>
+<header>
+    <div class="brand"><span class="dot"></span> EyeGate / Monitor</div>
+    <div class="nav">
+        <a href="/kiosk">Kiosk</a>
+        <a href="/monitor">Monitor</a>
+        <a href="/sim">Sim</a>
+        <a href="/admin">Admin</a>
+    </div>
+</header>
+<main class="layout">
+    <div class="panels">
+        <section class="panel">
+            <h2>Live camera (backend)</h2>
+            <div class="video-wrap">
+                <img id="video" alt="Gateway camera" />
+                <canvas id="overlay"></canvas>
+            </div>
+            <div class="row">
+                <button class="btn" id="btn-reload">Retry stream</button>
+            </div>
+            <label class="small">Admin token (если задан)
+                <input data-admin-token type="password" placeholder="X-Admin-Token">
+            </label>
+            <div class="log" id="camera-hint" data-type="info">Серверный MJPEG поток /api/video/mjpeg. Браузерная камера не используется.</div>
+        </section>
+        <section class="panel">
+            <h2>Vision status</h2>
+            <div class="list">
+                <div class="row"><span class="chip">People: <span id="people-count">-</span></span></div>
+                <div class="row"><span class="chip">Match: <span id="match-status">-</span></span></div>
+                <div class="row"><span class="chip">Distance: <span id="match-distance">-</span></span></div>
+                <div class="row"><span class="chip">Last push: <span id="last-ts">-</span></span></div>
+                <div class="row"><span class="chip">Backend WS: <span id="ws-status">-</span></span></div>
+            </div>
+            <p class="muted">Every frame runs in the browser (face-api) and is pushed to the backend.</p>
+        </section>
+    </div>
+</main>
+<script src="/static/common.js"></script>
+<script src="/static/monitor.js"></script>
+</body>
+</html>

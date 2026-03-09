@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EyeGate Mantrap - Login</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-top">
+        <h1>EyeGate Mantrap</h1>
+        <nav class="nav">
+            <a href="/">Dashboard</a>
+            <a href="/kiosk">Kiosk</a>
+            <a href="/monitor">Monitor</a>
+            <a href="/simulator">Simulator</a>
+            <a href="/admin">Admin</a>
+            <a href="/register">Register</a>
+            <a href="/login">Login</a>
+        </nav>
+    </div>
+    <p class="subtitle">Authenticate to start the mantrap flow (opens door 1 on success).</p>
+</header>
+
+<main class="main single">
+    <section class="card wide">
+        <h2>Login</h2>
+        <form id="login-form" class="form-grid">
+            <label>
+                <span>Login</span>
+                <input type="text" name="login" required autofocus>
+            </label>
+            <label>
+                <span>Password</span>
+                <input type="password" name="password" required>
+            </label>
+            <button type="submit" class="btn">Sign in</button>
+        </form>
+        <div id="login-message" class="message"></div>
+        <p class="hint">After successful login FSM moves to WAIT_ENTER, door 1 unlocks; proceed inside for room analysis.</p>
+    </section>
+</main>
+
+<script>
+    async function submitLogin(event) {
+        event.preventDefault();
+        const form = event.target;
+        const data = {
+            login: form.login.value.trim(),
+            password: form.password.value,
+        };
+
+        const msg = document.getElementById("login-message");
+        msg.textContent = "Signing in...";
+        msg.className = "message";
+
+        try {
+            const resp = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            if (!resp.ok) {
+                const detail = await resp.text();
+                throw new Error(detail || `HTTP ${resp.status}`);
+            }
+            const result = await resp.json();
+            // save token/role for admin calls
+            localStorage.setItem("auth_token", result.token);
+            localStorage.setItem("auth_role", result.role);
+            msg.textContent = `OK. User #${result.user_id}, gate state: ${result.state}. Move to door 1. Role: ${result.role}`;
+            msg.className = "message success";
+        } catch (err) {
+            console.error(err);
+            msg.textContent = err.message || "Login failed";
+            msg.className = "message error";
+        }
+    }
+
+    document.getElementById("login-form").addEventListener("submit", submitLogin);
+</script>
+</body>
+</html>
