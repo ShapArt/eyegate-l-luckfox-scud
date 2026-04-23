@@ -1,39 +1,54 @@
-# EyeGate Mantrap
+# eyegate-l-luckfox-scud
 
-EyeGate Mantrap — учебный программно-аппаратный макет шлюзовой системы контроля доступа с двумя дверями, PIN-аутентификацией, мониторингом состояния дверей и модулем анализа зоны между дверями.
+![License](https://img.shields.io/github/license/ShapArt/eyegate-l-luckfox-scud)
+![Last Commit](https://img.shields.io/github/last-commit/ShapArt/eyegate-l-luckfox-scud)
+![Language](https://img.shields.io/github/languages/top/ShapArt/eyegate-l-luckfox-scud)
 
-## Состав
-- `server/` — backend на FastAPI.
-- `web/app/` — SPA-интерфейс оператора, администратора, киоска и симулятора.
-- `gate/` — конечный автомат шлюза и контроллер логики.
-- `vision/` — сервис анализа кадров, people count, face matching.
-- `hw/` — драйверы датчиков, дверей и последовательного интерфейса.
-- `tests/` — автоматические тесты `pytest`.
-- `docs/` — эксплуатационные и проектные markdown-документы.
+## EN Overview
+EyeGate-L reader prototype (face+pupil) on Luckfox
 
-## Быстрый старт
-```bash
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
+## RU Описание
+EyeGate-L reader prototype (face+pupil) on Luckfox
+
+## EN Features
+- Clear project purpose and maintainable structure.
+- Standardized community and contribution files.
+- Consistent documentation style across account repositories.
+
+## RU Возможности
+- Понятная цель проекта и поддерживаемая структура.
+- Стандартизированные файлы сообщества и вклада.
+- Единый стиль документации во всех репозиториях аккаунта.
+
+## EN Quick Start
 pip install -r requirements.txt
-pip install -r requirements-dev.txt
-cd web/app
-npm install
-npm run build
-cd ../..
-uvicorn server.main:app --reload
-```
+python -m main
 
-Для автономной стендовой проверки используйте `EYEGATE_DUMMY_HW=1` и `VISION_MODE=dummy`. Подробные параметры запуска и настройки приведены в [docs/INSTALL_RUNBOOK.md](docs/INSTALL_RUNBOOK.md).
+## RU Быстрый старт
+pip install -r requirements.txt
+python -m main
 
-## Проверка
-```bash
-pytest -q
-```
+## EN Project Structure
+- .github/ - templates, policy files, CI config.
+- Source files and assets are stored in repository root or feature directories.
 
-Ключевые документы:
-- [docs/INSTALL_RUNBOOK.md](docs/INSTALL_RUNBOOK.md)
-- [docs/USER_GUIDE.md](docs/USER_GUIDE.md)
-- [docs/OPERATOR_GUIDE.md](docs/OPERATOR_GUIDE.md)
-- [docs/TEST_PLAN.md](docs/TEST_PLAN.md)
-- [docs/TRACEABILITY_MATRIX.md](docs/TRACEABILITY_MATRIX.md)
+## RU Структура проекта
+- .github/ - шаблоны, policy-файлы, конфиг CI.
+- Исходники и ресурсы находятся в корне или профильных директориях.
+
+## EN Roadmap
+- Improve test coverage and automation.
+- Keep docs aligned with actual project behavior.
+
+## RU Планы
+- Расширять покрытие тестами и автоматизацией.
+- Поддерживать документацию в актуальном состоянии.
+
+## EN Contributing
+See .github/CONTRIBUTING.md.
+
+## RU Вклад
+См. .github/CONTRIBUTING.md.
+
+## License / Лицензия
+See LICENSE.
