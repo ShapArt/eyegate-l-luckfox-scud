@@ -2,9 +2,9 @@
 
 ![Social Preview](https://raw.githubusercontent.com/ShapArt/eyegate-l-luckfox-scud/main/.github/social-preview.png)
 
-[![Stars](https://img.shields.io/github/stars/ShapArt/=for-the-badge)](https://github.com/ShapArt/eyegate-l-luckfox-scud/stargazers)
-[![Last Commit](https://img.shields.io/github/last-commit/ShapArt/=for-the-badge)](https://github.com/ShapArt/eyegate-l-luckfox-scud/commits/main)
-[![License](https://img.shields.io/github/license/ShapArt/=for-the-badge)](https://github.com/ShapArt/eyegate-l-luckfox-scud/blob/main/LICENSE)
+[![Stars](https://img.shields.io/github/stars/ShapArt/eyegate-l-luckfox-scud?style=for-the-badge)](https://github.com/ShapArt/eyegate-l-luckfox-scud/stargazers)
+[![Last Commit](https://img.shields.io/github/last-commit/ShapArt/eyegate-l-luckfox-scud?style=for-the-badge)](https://github.com/ShapArt/eyegate-l-luckfox-scud/commits/main)
+[![License](https://img.shields.io/github/license/ShapArt/eyegate-l-luckfox-scud?style=for-the-badge)](https://github.com/ShapArt/eyegate-l-luckfox-scud/blob/main/LICENSE)
 
 ## RU
 **Слоган:** CV на edge-устройстве
@@ -40,4 +40,5 @@ See .github/CONTRIBUTING.md.
 
 ## License
 See LICENSE.
+
 
