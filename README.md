@@ -8,38 +8,16 @@ This repository is best understood as a **prototype for embedded or edge-side co
 
 The important part of that framing is the word *edge*: the project is not only about detection or inference in isolation, but about making CV logic fit a constrained hardware environment where resource limits, deployment shape, and device context matter.
 
-## Positioning
+## Why this project is worth showing
 
-The repository sits in a useful middle ground between:
+A lot of CV repositories stop at “the model runs.” This one is more interesting when read as an attempt to make a vision pipeline behave under tighter operational limits.
 
-- computer vision experimentation;
-- hardware-aware prototyping;
-- edge deployment thinking.
+That makes it relevant for readers who care about:
 
-That makes it more interesting than a generic model demo, even if it is still a prototype rather than a finished product platform.
-
-## Why this project matters
-
-Edge CV projects are difficult for a simple reason: the model is only one part of the problem.
-
-Real constraints usually come from:
-
-- limited CPU / memory / storage;
-- device-specific runtime assumptions;
-- I/O and camera handling;
-- reliability under non-lab conditions;
-- the need to keep the whole pipeline lightweight.
-
-A repository framed around those constraints is valuable because it shows interest in **deployment reality**, not only in algorithmic experimentation.
-
-## What to expect from this repository
-
-The repository should be read as a compact engineering prototype around:
-
-- CV pipeline development for constrained hardware;
-- hardware-aware iteration;
-- lightweight deployment-oriented structure;
-- experimentation with embedded-style operational limits.
+- constrained hardware deployment;
+- lightweight inference paths;
+- practical CV prototyping outside a full server environment;
+- the difference between research code and something closer to a deployable edge experiment.
 
 ## Recommended reading lens
 
@@ -47,27 +25,27 @@ When reviewing this repository, the most useful questions are:
 
 - what part of the vision pipeline is being tested here;
 - what hardware or runtime constraints shape the implementation;
-- how much of the logic is prototype-grade versus deployment-grade;
-- what would need to change to move from prototype to repeatable edge deployment.
+- where the prototype trades completeness for deployability;
+- what would need to change to move from prototype to repeatable edge delivery.
 
-## Where this repo fits in a portfolio
+## Portfolio positioning
 
-This is a good **supporting technical project** because it expands the portfolio beyond automation and operator tooling.
+This is a **supporting technical project** rather than the core of the profile.
 
-It suggests interest in:
+Its value is that it broadens the portfolio beyond bots, export tools, and workflow automation. It suggests interest in:
 
 - resource-constrained engineering;
-- system behavior outside ideal desktop/server conditions;
-- practical CV deployment questions.
+- CV outside ideal desktop conditions;
+- deployment-aware prototyping.
 
-## What would strengthen this repository further
+## What would strengthen it further
 
-To make this project more portfolio-ready over time, the best additions would be:
+The most valuable next documentation additions would be:
 
-- a short hardware note describing the target board or runtime context;
-- one pipeline diagram or inference flow sketch;
-- one example of input/output behavior;
-- a short section describing the main bottleneck or design trade-off.
+- a short note on the target hardware/runtime;
+- one pipeline diagram;
+- one input/output example;
+- one explicit trade-off section describing the main bottleneck.
 
 ## RU
 
